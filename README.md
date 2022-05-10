@@ -4,6 +4,7 @@ API:
 
 - What are the URLs and endpoints and params
 - Does it have an API key
+- my-API-key '12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010'
 - weather data by city name
   https://api.openweathermap.org/data/2.5/weather?q=london&appid=8109f605d79877f7488a194794a29013
 - forecast weather data
