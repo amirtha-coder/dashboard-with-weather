@@ -1,4 +1,62 @@
-const API_KEY = "YOUR_API_KEY";
+// Global Declarations
+// my api key
+const API_KEY = "12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010";
+
+const options = {
+  method: "GET",
+  url: "https://community-open-weather-map.p.rapidapi.com/weather",
+  params: {
+    q: "London,uk",
+    lat: "0",
+    lon: "0",
+    callback: "test",
+    id: "2172797",
+    lang: "null",
+    units: "imperial",
+    mode: "xml",
+  },
+};
+
+const constructUrl = (baseUrl, params) => {
+  const queryParams = new URLSearchParams(params).toString();
+
+  return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+};
+
+const fetchData = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Failed to fetch data");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+// read from local storage
+const readFromLocalStorage = (key, defaultValue) => {
+  // get from LS using key name
+  const dataFromLS = localStorage.getItem(key);
+  // parse data from LS
+  const parsedData = JSON.parse(dataFromLS);
+  if (parsedData) {
+    return parsedData;
+  } else {
+    return defaultValue;
+  }
+};
+
+// write to local storage
+const writeToLocalStorage = (key, value) => {
+  // convert value to string
+  const stringifiedValue = JSON.stringify(value);
+  // set stringified value to LS for key name
+  localStorage.setItem(key, stringifiedValue);
+};
 
 const renderCities = () => {
   // get recent cities from LS []

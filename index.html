@@ -28,38 +28,80 @@
   </head>
   <body>
     <!-- header -->
-    <header>TITLE</header>
+    <header class="header">
+      <h1>Weather Dashboard</h1>
+    </header>
     <main class="row border">
       <!-- Form and recent history section -->
-      <section class="col-sm-12 col-md-3 border">
+      <section class="col-sm-12 col-md-3 border my-2 aside">
         <!-- search form -->
-        <div>Search Form</div>
-
+        <div class="form-div" id="form-div">
+          <h2>Weather in your City</h2>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="enter your city/town"
+          />
+          <button
+            type="button"
+            class="btn btn-outline-warning primary btn-lg btn-block my-2"
+          >
+            Search
+          </button>
+        </div>
+        <hr />
         <!-- recent cities -->
-        <div>Recent Cities</div>
+        <div class="recent-cities" id="recent-cities">
+          <h3>Recent Explores</h3>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block my-1">
+            Block level button
+          </button>
+        </div>
       </section>
 
       <!-- current and future data section -->
       <section class="col-sm-12 col-md-9 border">
+        <h2 id="title">Atlanta (09/01/26)</h2>
+        <span> <img src="" alt=""></span>
+        <ul>
+          <li class="list current temp"><i class="fa-solid fa-temperature-half my-1"></i>  : 36</li>
+          <li class="list current temp"><i class="fa-solid fa-wind"></i>: </li>
+          <li class="list current temp"><i class="fa-solid fa-droplet"></i>></i>:</li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun"></i>: <span class="bg-success text-white px-3 rounded-2"> 9,00 </span></li>
+        </ul>
+
         <!-- current weather data -->
-        <div>Current Weather Data</div>
 
         <!-- forecast weather data -->
-        <div>
+        <div class="form-cards" id="form-cards">
           <!-- title -->
-          <h2>Title</h2>
+
           <div class="d-flex justify-content-between flex-wrap">
             <!-- forecast weather card 1 -->
-            <div class="card" style="width: 12rem">
-              <img src="..." class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
+            <div class="card colour-forecast">
+             <h3 id="title">Atlanta (09/01/26)</h2>
+     <span> <img src=" https://api.openweathermap.org/data/2.5/weather?q=london&appid=8109f605d79877f7488a194794a29013" alt=""></span>
+        <ul>
+          <li class="list current temp">Temperature: 36</li>
+          <li class="list current temp">Wind:</li>
+          <li class="list current temp">Humidity:</li>
+          <li class="list current temp">UV Index:</li>
+        </ul>
             </div>
 
             <!-- forecast weather card 2 -->
