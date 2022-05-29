@@ -1,6 +1,6 @@
 // Global Declarations
 // my api key
-const apiKEY = "12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010";
+const apiKEY = "4ed12bc6a3ff959aecde3577425b368e";
 const recentCitiesContainer = $("#recent-cities");
 const searchForm = $("#form-div");
 const weatherInfoContainer = $("#weather-info-container");
@@ -204,6 +204,12 @@ const handleFormSubmit = async (event) => {
       }
     );
     const currentData = await fetchData(currentDataURL);
+    // get lat, lon and city name
+    const lat = currentData?.coord?.lat;
+    const lon = currentData?.coord?.lon;
+    const displayCityName = currentData?.name;
+    console.log(lat, lon, displayCityName);
+
     console.log(currentData);
     renderCurrentWeather();
     renderForecastWeather();
