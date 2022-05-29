@@ -43,6 +43,12 @@ body {
   color: white;
 }
 
+.today-img-icon {
+  width: 60px;
+  height: 60px;
+  border: solid 1px var(--naples-yellow);
+}
+
 ul,
 li {
   list-style: none;
