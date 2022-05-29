@@ -47,6 +47,18 @@ const writeToLocalStorage = (key, value) => {
   localStorage.setItem(key, stringifiedValue);
 };
 
+const getUVIClassName = (uvi) => {
+  if (uvi <= 3) {
+    return "success";
+  }
+  if (uvi > 3 && uvi < 8) {
+    return "warning";
+  }
+  if (uvi >= 8) {
+    return "danger";
+  }
+};
+
 const renderCurrentWeather = (data) => {
   const currentWeatherCard = `<div id="current-weather-data">
         <h2 id="title">${data.cityName}</h2>
@@ -66,9 +78,11 @@ const renderCurrentWeather = (data) => {
           <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : ${
             data.weatherData.current.humidity
           } % </li>
-          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2">  ${
+          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-${getUVIClassName(
             data.weatherData.current.uvi
-          } </span></li>
+          )} text-white px-3 rounded-2">  ${
+    data.weatherData.current.uvi
+  } </span></li>
         </ul>
     </div>`;
   weatherInfoContainer.append(currentWeatherCard);
@@ -105,9 +119,9 @@ const renderForecastWeather = (forecastWeatherData) => {
           <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i>${
             forecastDay.humidity
           }</li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> ${
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-${getUVIClassName(
             forecastDay.uvi
-          }</span></li>
+          )} text-white px-3 rounded-2"> ${forecastDay.uvi}</span></li>
         </ul>
             </div> `;
     $("#forecast-container").append(forecastCards);
