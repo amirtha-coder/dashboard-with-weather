@@ -1,11 +1,8 @@
-# dashboard-with-weather
+# dashboard-with-weather 🌩️
 
-User Story
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
+An application that works using JQuery, HTML and CSS to generate a weather forecast for cities around the world.
 
-AIM
+## User Journey
 
 ```
 GIVEN a weather dashboard with form inputs
@@ -22,47 +19,26 @@ THEN I am again presented with current and future conditions for that city
 
 ```
 
-API:
+## Screenshots
 
-- What are the URLs and endpoints and params
-- Does it have an API key
-- my-API-key '12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010'
-- weather data by city name
-  https://api.openweathermap.org/data/2.5/weather?q=london&appid=4ed12bc6a3ff959aecde3577425b368e
-- forecast weather data
-  https://api.openweathermap.org/data/2.5/onecall?lat=51.5085&lon=-0.1257&exclude=current,minutely,hourly&units=metric&appid=4ed12bc6a3ff959aecde3577425b368e
+### ![nosearches](./assets/images/nosearches.png)
 
-Local Storage:
+### ![allsearcges](./assets/images/allsearches.png)
 
-- Store recent cities
+## Technologies
 
-Form:
+- HTML
+- CSS
+- Coolers
+- Javascript
+- JQuery
+- Git
 
-- Input to search for weather data by city name
-- Submit button
+## Previous projects
 
-https://openweathermap.org/weather-data
-
-Current weather data
-
-- lat
-- lon
-- City name
-- Date (Friday, 6th May, 2022) (convert unix timestamp to date format using moment js)
-- weather icon http://openweathermap.org/img/w/04d.png
-- temperature (units=metric) degree celsius
-- humidity (%)
-- wind speed (m/s)
-- UV index
-  - colour coded to favourable, moderate, or severe
-  - https://www.verywellhealth.com/know-your-uv-index-1069524
-
-Future weather data (5 day forecast)
-
-- Date (Friday, 6th May, 2022) (convert unix timestamp to date format using moment js)
-- weather icon http://openweathermap.org/img/w/04d.png
-- temperature (min and max or just max)
-- humidity (%)
-- wind speed (m/s)
-
-When I click on recent city render all data with that city name
+- #### Project 1: semantic HTML and adding CSS to refactor the webpage for a marketing agency. Click the link [here](https://winner-am1.github.io/semantic_html_refactor/) to access the webpage.
+- #### Project 2: My professional portfolio created using HTML and CSS.Click the link [here](https://amirtha-coder.github.io/amirtha-portfolio/) to access the webpage.
+- #### Project 3: My random password generator created via javascript. Click the link [here](https://amirtha-coder.github.io/random-password-generator/) to access the webpage.
+- #### Project 4: To create this timed code quiz I had to used HTML, CSS, Javascript and Web APIs. Click the link [here](https://amirtha-coder.github.io/timed-code-quiz/) to access the webpage
+- #### Project 5: To create this work day planner using HTML, CSS and JQuery .Click the link [here](https://amirtha-coder.github.io/work-day-planner/) to access the webpage.
+- ..._PENDING_...
