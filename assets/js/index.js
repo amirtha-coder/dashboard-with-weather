@@ -47,49 +47,10 @@ const writeToLocalStorage = (key, value) => {
   localStorage.setItem(key, stringifiedValue);
 };
 
-const renderCities = () => {
-  // get recent cities from LS
-  const recentCities = readFromLocalStorage("recentCities", []);
-  console.log("ready");
-
-  if (!recentCities.length) {
-    const alert = `<div class="alert alert-primary d-flex align-items-center" id ="no-cities-alert"role="alert">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-              <div>
-    There are no recent explores of cities
-    </div>
-  </div>`;
-    recentCitiesContainer.append(alert);
-    // if empty show alert
-  } else {
-    const createRecentSearchCity = (city) => {
-      return `<button type="button" class="btn btn-secondary btn-lg btn-block my-1" data-city="${city}">
-          ${city}
-          </button>`;
-    };
-    const recentSearches = recentCities.map(createRecentSearchCity).join("");
-    // render recent cities
-    recentCitiesContainer.append(recentSearches);
-  }
-
-  // add an event listener on div containing all cities
-};
-
-const handleRecentSearchClick = (event) => {
-  // restrict click to only buttons
-  const target = $(event.target);
-  if (target.is("button")) {
-    // get data-city attribute
-    const cityName = target.attr("data-city");
-    console.log(cityName);
-  }
-};
-
-const renderCurrentWeather = () => {
+const renderCurrentWeather = (weatherData) => {
+  console.log(weatherData);
   const currentWeatherCard = `<div id="current-weather-data">
-        <h2 id="title">Atlanta</h2>
+        <h2 id="title">${weatherData.cityName}</h2>
         <p>
            Mon 6th June 2022
         </p>
@@ -179,13 +140,42 @@ const renderForecastWeather = (forecastWeatherData) => {
   weatherInfoContainer.append(forecastCards);
   // render the forecast weather data and append each card to section
 };
+const renderCities = () => {
+  // get recent cities from LS
+  const recentCities = readFromLocalStorage("recentCities", []);
+  console.log("ready");
+
+  if (!recentCities.length) {
+    const alert = `<div class="alert alert-primary d-flex align-items-center" id ="no-cities-alert"role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+              <div>
+    There are no recent explores of cities
+    </div>
+  </div>`;
+    recentCitiesContainer.append(alert);
+    // if empty show alert
+  } else {
+    const createRecentSearchCity = (city) => {
+      return `<button type="button" class="btn btn-secondary btn-lg btn-block my-1" data-city="${city}">
+          ${city}
+          </button>`;
+    };
+    const recentSearches = recentCities.map(createRecentSearchCity).join("");
+    // render recent cities
+    recentCitiesContainer.append(recentSearches);
+  }
+
+  // add an event listener on div containing all cities
+};
 
 const renderWeatherData = async (cityName) => {
   const currentDataURL = constructUrl(
     "https://api.openweathermap.org/data/2.5/weather",
     {
       q: cityName,
-      appid: apiKey,
+      appid: "4ed12bc6a3ff959aecde3577425b368e",
     }
   );
   const currentData = await fetchData(currentDataURL);
@@ -196,21 +186,20 @@ const renderWeatherData = async (cityName) => {
   console.log(lat, lon, displayCityName);
 
   const forecastDataURL = constructUrl(
-    "https://api.openweathermap.org/data/3.0/onecall",
+    "https://api.openweathermap.org/data/2.5/onecall",
     {
       lat: lat,
       lon: lon,
       exclude: "minutely,hourly",
       units: "metric",
-      appid: apiKey,
+      appid: "4ed12bc6a3ff959aecde3577425b368e",
     }
   );
   const forecastData = await fetchData(forecastDataURL);
-  // use API to fetch current weather data
-  // from the response cherry pick all the data you want to see in the current weather card
-  // get the lat and lon from current weather data API response
-  // render current weather data
-  // render forecast weather data
+  return {
+    cityName: displayCityName,
+    weatherData: forecastData,
+  };
 };
 
 const handleFormSubmit = async (event) => {
@@ -219,9 +208,9 @@ const handleFormSubmit = async (event) => {
   // get the city name from input
   const cityName = $("#input-city").val();
   if (cityName) {
-    renderWeatherData(cityName);
-    renderCurrentWeather();
-    renderForecastWeather();
+    const weatherData = await renderWeatherData(cityName);
+    renderCurrentWeather(weatherData);
+    renderForecastWeather(weatherData);
     const recentCities = readFromLocalStorage("recentCities", []);
 
     // else render weather data
@@ -236,6 +225,15 @@ const handleFormSubmit = async (event) => {
     recentCitiesContainer.children().last().remove();
     // rerender recent cities
     renderCities();
+  }
+};
+const handleRecentSearchClick = (event) => {
+  // restrict click to only buttons
+  const target = $(event.target);
+  if (target.is("button")) {
+    // get data-city attribute
+    const cityName = target.attr("data-city");
+    console.log(cityName);
   }
 };
 searchForm.submit(handleFormSubmit);
