@@ -1,6 +1,6 @@
 // Global Declarations
 // my api key
-const API_KEY = "12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010";
+const apiKEY = "12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010";
 const recentCitiesContainer = $("#recent-cities");
 const searchForm = $("#form-div");
 const weatherInfoContainer = $("#weather-info-container");
@@ -182,7 +182,7 @@ const renderForecastWeather = (forecastWeatherData) => {
 
 const renderWeatherData = (cityName) => {
   // use API to fetch current weather data
-  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`;
+  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
   // from the response cherry pick all the data you want to see in the current weather card
   // get the lat and lon from current weather data API response
   const forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&units=metric&appid=${API_KEY}`;
@@ -190,7 +190,7 @@ const renderWeatherData = (cityName) => {
   // render forecast weather data
 };
 
-const handleFormSubmit = (event) => {
+const handleFormSubmit = async (event) => {
   event.preventDefault();
   console.log("submit");
   // get the city name from input
@@ -200,10 +200,11 @@ const handleFormSubmit = (event) => {
       "https://api.openweathermap.org/data/2.5/weather?",
       {
         q: cityName,
-        appid: "8109f605d79877f7488a194794a29013",
+        appid: apiKEY,
       }
     );
-const currentData 
+    const currentData = await fetchData(currentDataURL);
+    console.log(currentData);
     renderCurrentWeather();
     renderForecastWeather();
     const recentCities = readFromLocalStorage("recentCities", []);
