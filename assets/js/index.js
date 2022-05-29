@@ -1,6 +1,6 @@
 // Global Declarations
 // my api key
-const apiKEY = "4ed12bc6a3ff959aecde3577425b368e";
+const apiKey = "4ed12bc6a3ff959aecde3577425b368e";
 const recentCitiesContainer = $("#recent-cities");
 const searchForm = $("#form-div");
 const weatherInfoContainer = $("#weather-info-container");
@@ -180,12 +180,35 @@ const renderForecastWeather = (forecastWeatherData) => {
   // render the forecast weather data and append each card to section
 };
 
-const renderWeatherData = (cityName) => {
+const renderWeatherData = async (cityName) => {
+  const currentDataURL = constructUrl(
+    "https://api.openweathermap.org/data/2.5/weather",
+    {
+      q: cityName,
+      appid: apiKey,
+    }
+  );
+  const currentData = await fetchData(currentDataURL);
+  // get lat, lon and city name
+  const lat = currentData?.coord?.lat;
+  const lon = currentData?.coord?.lon;
+  const displayCityName = currentData?.name;
+  console.log(lat, lon, displayCityName);
+
+  const forecastDataURL = constructUrl(
+    "https://api.openweathermap.org/data/3.0/onecall",
+    {
+      lat: lat,
+      lon: lon,
+      exclude: "minutely,hourly",
+      units: "metric",
+      appid: apiKey,
+    }
+  );
+  const forecastData = await fetchData(forecastDataURL);
   // use API to fetch current weather data
-  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
   // from the response cherry pick all the data you want to see in the current weather card
   // get the lat and lon from current weather data API response
-  const forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&units=metric&appid=${API_KEY}`;
   // render current weather data
   // render forecast weather data
 };
@@ -196,21 +219,7 @@ const handleFormSubmit = async (event) => {
   // get the city name from input
   const cityName = $("#input-city").val();
   if (cityName) {
-    const currentDataURL = constructUrl(
-      "https://api.openweathermap.org/data/2.5/weather?",
-      {
-        q: cityName,
-        appid: apiKEY,
-      }
-    );
-    const currentData = await fetchData(currentDataURL);
-    // get lat, lon and city name
-    const lat = currentData?.coord?.lat;
-    const lon = currentData?.coord?.lon;
-    const displayCityName = currentData?.name;
-    console.log(lat, lon, displayCityName);
-
-    console.log(currentData);
+    renderWeatherData(cityName);
     renderCurrentWeather();
     renderForecastWeather();
     const recentCities = readFromLocalStorage("recentCities", []);
