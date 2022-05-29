@@ -51,14 +51,24 @@ const renderCurrentWeather = (data) => {
   const currentWeatherCard = `<div id="current-weather-data">
         <h2 id="title">${data.cityName}</h2>
         <p>
-           Mon 6th June 2022
+          ${moment().format("ddd, Do MMM, YYYY")}
         </p>
-        <img  src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+        <img  src="http://openweathermap.org/img/w/${
+          data.weatherData.current.weather[0].icon
+        }.png" alt="">
         <ul>
-          <li class="list current temp">  <i class="fa-solid fa-temperature-half my-1 fa-1x"></i>  : ${data.weatherData.current.temp} °C </li>
-          <li class="list current temp">Wind  <i class="fa-solid fa-wind my-1 fa-1x"></i>  : ${data.weatherData.current.wind_speed} mph </li>
-          <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : ${data.weatherData.current.humidity} % </li>
-          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2">  ${data.weatherData.current.uvi} </span></li>
+          <li class="list current temp">  <i class="fa-solid fa-temperature-half my-1 fa-1x"></i>  : ${
+            data.weatherData.current.temp
+          } °C </li>
+          <li class="list current temp">Wind  <i class="fa-solid fa-wind my-1 fa-1x"></i>  : ${
+            data.weatherData.current.wind_speed
+          } mph </li>
+          <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : ${
+            data.weatherData.current.humidity
+          } % </li>
+          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2">  ${
+            data.weatherData.current.uvi
+          } </span></li>
         </ul>
     </div>`;
   weatherInfoContainer.append(currentWeatherCard);
@@ -66,77 +76,42 @@ const renderCurrentWeather = (data) => {
 };
 
 const renderForecastWeather = (forecastWeatherData) => {
-  const forecastCards = `<div class="form-cards" id="form-cards">
-          <div class="d-flex justify-content-between flex-wrap">
-          
+  const forecastWeek = forecastWeatherData.weatherData.daily.slice(1, 6);
+  console.log(forecastWeek);
+  const forecastContainer = ` <div class="d-flex justify-content-between flex-wrap form-cards" id="forecast-container"> </div>`;
+  weatherInfoContainer.append(forecastContainer);
+  forecastWeek.forEach((forecastDay, index) => {
+    const date = new Date(forecastDay.dt * 1000);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    const forecastCards = `
             <div class="card colour-forecast">
-             <h3 id="title">Atlanta </h2>
+             <h3 id="title">${forecastWeatherData.cityName} </h2>
               <p>
-                Mon 6th June 2022
+                ${day + "/" + month + "/" + year}
               </p>
-              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/w/${
+                forecastDay.weather[0].icon
+              }.png" alt=""></span> 
         <ul>
-          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
-          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> ${
+            forecastDay.temp.day
+          }</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i> ${
+            forecastDay.wind_speed
+          }</li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i>${
+            forecastDay.humidity
+          }</li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> ${
+            forecastDay.uvi
+          }</span></li>
         </ul>
-            </div>
-             <div class="card colour-forecast">
-             <h3 id="title">Atlanta </h2>
-              <p>
-                Mon 6th June 2022
-              </p>
-              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
-        <ul>
-          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
-          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
-        </ul>
-            </div>
-             <div class="card colour-forecast">
-             <h3 id="title">Atlanta </h2>
-              <p>
-                Mon 6th June 2022
-              </p>
-              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
-        <ul>
-          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
-          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
-        </ul>
-            </div>
-             <div class="card colour-forecast">
-             <h3 id="title">Atlanta </h2>
-              <p>
-                Mon 6th June 2022
-              </p>
-              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
-        <ul>
-          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
-          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
-        </ul>
-            </div>
-             <div class="card colour-forecast">
-             <h3 id="title">Atlanta </h2>
-              <p>
-                Mon 6th June 2022
-              </p>
-              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
-        <ul>
-          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
-          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
-          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
-        </ul>
-            </div>
-          </div>
-        </div>`;
-  weatherInfoContainer.append(forecastCards);
+            </div> `;
+    $("#forecast-container").append(forecastCards);
+  });
   // render the forecast weather data and append each card to section
 };
 const renderCities = () => {
@@ -201,37 +176,52 @@ const renderWeatherData = async (cityName) => {
   };
 };
 
+const renderWeatherInfo = async (cityName) => {
+  const weatherData = await renderWeatherData(cityName);
+  renderCurrentWeather(weatherData);
+  renderForecastWeather(weatherData);
+};
+
 const handleFormSubmit = async (event) => {
   event.preventDefault();
+  weatherInfoContainer.empty();
+
   console.log("submit");
   // get the city name from input
   const cityName = $("#input-city").val();
+
   if (cityName) {
-    const weatherData = await renderWeatherData(cityName);
-    renderCurrentWeather(weatherData);
-    renderForecastWeather(weatherData);
+    renderWeatherInfo(cityName);
     const recentCities = readFromLocalStorage("recentCities", []);
 
     // else render weather data
-
+    const city = cityName.toLowerCase();
+    if (!recentCities.includes(city)) {
+      recentCitiesContainer.empty();
+      recentCities.push(city);
+      writeToLocalStorage("recentCities", recentCities);
+    } else {
+      recentCitiesContainer.empty();
+    }
+    renderCities();
     // fetch data from API
     // render current data
     // render forecast data
 
     // push city name to array
-    recentCities.push(cityName);
-    writeToLocalStorage("recentCities", recentCities);
-    recentCitiesContainer.children().last().remove();
+
     // rerender recent cities
-    renderCities();
   }
 };
-const handleRecentSearchClick = (event) => {
+const handleRecentSearchClick = async (event) => {
   // restrict click to only buttons
   const target = $(event.target);
   if (target.is("button")) {
     // get data-city attribute
+    weatherInfoContainer.empty();
     const cityName = target.attr("data-city");
+    await renderWeatherInfo(cityName);
+
     console.log(cityName);
   }
 };
