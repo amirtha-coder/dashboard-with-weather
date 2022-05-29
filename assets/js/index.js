@@ -2,21 +2,8 @@
 // my api key
 const API_KEY = "12d95f7e12mshd5a9c017ef2a138p13e781jsn9da0c1e65010";
 const recentCitiesContainer = $("#recent-cities");
-
-const options = {
-  method: "GET",
-  url: "https://community-open-weather-map.p.rapidapi.com/weather",
-  params: {
-    q: "London,uk",
-    lat: "0",
-    lon: "0",
-    callback: "test",
-    id: "2172797",
-    lang: "null",
-    units: "imperial",
-    mode: "xml",
-  },
-};
+const searchForm = $("#form-div");
+const weatherInfoContainer = $("#weather-info-container");
 
 const constructUrl = (baseUrl, params) => {
   const queryParams = new URLSearchParams(params).toString();
@@ -38,6 +25,7 @@ const fetchData = async (url, options = {}) => {
     throw new Error(error.message);
   }
 };
+
 // read from local storage
 const readFromLocalStorage = (key, defaultValue) => {
   // get from LS using key name
@@ -99,34 +87,142 @@ const handleRecentSearchClick = (event) => {
   }
 };
 
-const renderCurrentWeather = (currentWeatherData) => {
+const renderCurrentWeather = () => {
+  const currentWeatherCard = `<div id="current-weather-data">
+        <h2 id="title">Atlanta</h2>
+        <p>
+           Mon 6th June 2022
+        </p>
+        <img  src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+        <ul>
+          <li class="list current temp"> Temperature   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i>  : 36</li>
+          <li class="list current temp">Wind  <i class="fa-solid fa-wind my-1 fa-1x"></i>  : </li>
+          <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : </li>
+          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2"> 9,00 </span></li>
+        </ul>
+    </div>`;
+  weatherInfoContainer.append(currentWeatherCard);
   // render the current weather data and append to section
 };
 
 const renderForecastWeather = (forecastWeatherData) => {
+  const forecastCards = `<div class="form-cards" id="form-cards">
+          <div class="d-flex justify-content-between flex-wrap">
+          
+            <div class="card colour-forecast">
+             <h3 id="title">Atlanta </h2>
+              <p>
+                Mon 6th June 2022
+              </p>
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+        <ul>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+        </ul>
+            </div>
+             <div class="card colour-forecast">
+             <h3 id="title">Atlanta </h2>
+              <p>
+                Mon 6th June 2022
+              </p>
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+        <ul>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+        </ul>
+            </div>
+             <div class="card colour-forecast">
+             <h3 id="title">Atlanta </h2>
+              <p>
+                Mon 6th June 2022
+              </p>
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+        <ul>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+        </ul>
+            </div>
+             <div class="card colour-forecast">
+             <h3 id="title">Atlanta </h2>
+              <p>
+                Mon 6th June 2022
+              </p>
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+        <ul>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+        </ul>
+            </div>
+             <div class="card colour-forecast">
+             <h3 id="title">Atlanta </h2>
+              <p>
+                Mon 6th June 2022
+              </p>
+              <span><img class= "today-img-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt=""></span> 
+        <ul>
+          <li class="list current temp">   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i> 36</li>
+          <li class="list current temp"> <i class="fa-solid fa-wind my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-droplet my-1 fa-1x"></i></li>
+          <li class="list current temp"><i class="fa-solid fa-cloud-sun my-1 fa-1x"></i> <span class="bg-success text-white px-3 rounded-2"> 10:00</span></li>
+        </ul>
+            </div>
+          </div>
+        </div>`;
+  weatherInfoContainer.append(forecastCards);
   // render the forecast weather data and append each card to section
 };
 
 const renderWeatherData = (cityName) => {
   // use API to fetch current weather data
   const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`;
-
   // from the response cherry pick all the data you want to see in the current weather card
-
   // get the lat and lon from current weather data API response
   const forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&units=metric&appid=${API_KEY}`;
-
   // render current weather data
-
   // render forecast weather data
 };
 
-const handleFormSubmit = () => {
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+  console.log("submit");
   // get the city name from input
-  // if city name is empty handle that
-  // else render weather data
-};
+  const cityName = $("#input-city").val();
+  if (cityName) {
+    const currentDataURL = constructUrl(
+      "https://api.openweathermap.org/data/2.5/weather?",
+      {
+        q: cityName,
+        appid: "8109f605d79877f7488a194794a29013",
+      }
+    );
+const currentData 
+    renderCurrentWeather();
+    renderForecastWeather();
+    const recentCities = readFromLocalStorage("recentCities", []);
 
+    // else render weather data
+
+    // fetch data from API
+    // render current data
+    // render forecast data
+
+    // push city name to array
+    recentCities.push(cityName);
+    writeToLocalStorage("recentCities", recentCities);
+    recentCitiesContainer.children().last().remove();
+    // rerender recent cities
+    renderCities();
+  }
+};
+searchForm.submit(handleFormSubmit);
 recentCitiesContainer.click(handleRecentSearchClick);
 const onReady = () => {
   renderCities();
