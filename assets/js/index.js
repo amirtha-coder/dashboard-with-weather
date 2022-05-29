@@ -47,19 +47,18 @@ const writeToLocalStorage = (key, value) => {
   localStorage.setItem(key, stringifiedValue);
 };
 
-const renderCurrentWeather = (weatherData) => {
-  console.log(weatherData);
+const renderCurrentWeather = (data) => {
   const currentWeatherCard = `<div id="current-weather-data">
-        <h2 id="title">${weatherData.cityName}</h2>
+        <h2 id="title">${data.cityName}</h2>
         <p>
            Mon 6th June 2022
         </p>
         <img  src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
         <ul>
-          <li class="list current temp"> Temperature   <i class="fa-solid fa-temperature-half my-1 fa-1x"></i>  : 36</li>
-          <li class="list current temp">Wind  <i class="fa-solid fa-wind my-1 fa-1x"></i>  : </li>
-          <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : </li>
-          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2"> 9,00 </span></li>
+          <li class="list current temp">  <i class="fa-solid fa-temperature-half my-1 fa-1x"></i>  : ${data.weatherData.current.temp} °C </li>
+          <li class="list current temp">Wind  <i class="fa-solid fa-wind my-1 fa-1x"></i>  : ${data.weatherData.current.wind_speed} mph </li>
+          <li class="list current temp">Humidity <i class="fa-solid fa-droplet my-1 fa-1x"></i> : ${data.weatherData.current.humidity} % </li>
+          <li class="list current temp">UV index  <i class="fa-solid fa-cloud-sun my-1 fa-1x"></i>  : <span class="bg-success text-white px-3 rounded-2">  ${data.weatherData.current.uvi} </span></li>
         </ul>
     </div>`;
   weatherInfoContainer.append(currentWeatherCard);
