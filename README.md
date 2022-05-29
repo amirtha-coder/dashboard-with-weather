@@ -2,6 +2,10 @@
 
 An application that works using JQuery, HTML and CSS to generate a weather forecast for cities around the world.
 
+## Deployed URL
+
+Click the link [here](https://amirtha-coder.github.io/dashboard-with-weather/) to access the webpage.
+
 ## User Journey
 
 ```
