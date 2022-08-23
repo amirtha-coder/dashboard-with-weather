@@ -1,0 +1,67 @@
+/* CSS HEX */
+:root {
+  --cobalt-blue: #1446a0ff;
+  --razzmatazz: #db3069ff;
+  --naples-yellow: #f5d547ff;
+  --beige: #ebebd3ff;
+  --onyx: #3c3c3bff;
+}
+
+body {
+  font-family: "Dancing Script", cursive;
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Smokum", cursive;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.header {
+  background-color: var(--razzmatazz);
+  text-align: center;
+  color: white;
+  box-shadow: inset;
+}
+
+.aside,
+.form-div,
+.recent-cities {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  width: 12rem;
+  margin: 1rem;
+}
+
+.colour-forecast {
+  background-color: var(--onyx);
+  color: white;
+}
+
+.today-img-icon {
+  width: 60px;
+  height: 60px;
+  border: solid 1px var(--naples-yellow);
+}
+
+ul,
+li {
+  list-style: none;
+  padding-left: 0;
+}
+
+@media screen and (max-width= 596px) {
+  .aside,
+  .form-div,
+  .recent-cities {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
